@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ titre }}</title>
+  <link rel="stylesheet" type="text/css" href="css/frontend.css?v=1.2">
+  <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div id="logo">Ciné-FiveStarz</div>
+    <nav>
+      <ul>
+        <li><a href=".">À l'affiche</a></li>
+        <li><a href="prochainement">Prochainement</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+
+  {{ include(templateMain) }}
+
+  </main>
+
+  <footer>
+    &copy; 2023 Ciné-FiveStarz
+  </footer>
+
+</body>
+</html>

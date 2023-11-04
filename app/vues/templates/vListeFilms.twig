@@ -1,0 +1,13 @@
+<section>
+  <h1>{{ titre|upper }}</h1>
+  <div>
+  {% for film in films %}
+    <div>
+      <a href="film?film_id={{ film.film_id }}"><img src="{{ film.film_affiche }}" alt=""></a>
+      <p class="legende">{{ film.genre_nom }} - {{ film.film_annee_sortie }} - {{ film.film_duree }} min</p>
+    </div>
+  {% else %}
+    <div>Aucun film.</div>
+  {% endfor %}
+  </div>
+</section> 

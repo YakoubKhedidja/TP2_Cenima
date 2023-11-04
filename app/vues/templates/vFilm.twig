@@ -1,0 +1,70 @@
+<section>
+  <h1>{{ film.film_titre }}</h1>
+  <div>
+    <img src="{{ film.film_affiche }}" alt="">
+    <div class="info">
+      <p>{{ film.film_resume }}</p>
+      <hr>
+      <ul>
+        <li><span>Genre:</span><span>{{ film.genre_nom }}</span></li>
+        <li><span>Année:</span><span>{{ film.film_annee_sortie }}</span></li>
+        <li><span>Durée:</span><span>{{ film.film_duree }} min</span></li>
+
+        <!-- liste des réalisateurs --> 
+        <li>
+          <span>Réalisation:</span>
+          <span>
+          {% for realisateur in realisateurs %}
+            {{ realisateur.realisateur_prenom }} {{ realisateur.realisateur_nom}}{% if not loop.last %},{% endif %} 
+          {% endfor %}
+          </span>
+        </li>
+
+        <!-- liste des pays --> 
+        <li>
+          <span>Pays:</span>
+          <span>
+          {% set liste = "" %}
+          {% for unPays in pays %}
+            {% set liste = liste ~ unPays.pays_nom ~ ", " %}  
+          {% endfor %}
+          {{ liste[:-2] }}  
+          </span>
+        </li>
+
+        <!-- liste des acteurs --> 
+        <li>
+          <span>Interprètes:</span>
+          <span>
+          {% for acteur in acteurs %}
+            {{ acteur.acteur_prenom  }} {{ acteur.acteur_nom }}<br>
+          {% endfor %}
+          </span>
+        </li>
+              
+      </ul>
+    </div>
+    <div class="ba">
+      {% if film.film_bande_annonce != null %}        
+      <video src="{{ film.film_bande_annonce }}" controls></video>
+      {% endif %}
+
+      <!-- horaires -->  
+      {% if seances %}
+      <section>
+        <h2>Horaires</h2>
+        <div id="horaires">
+          {% for seance_date, seance in seances %}
+          <div class="jour">{{ seance.jour|capitalize }} {{ seance_date[8:] }}</div>
+          <div class="heures">
+            {% for heure in seance.heures %}            
+            <div>{{ heure[:5] }}</div>  
+            {% endfor %}
+          </div>
+          {% endfor %}  
+        </div>
+      </section>
+      {% endif %}
+    </div>
+  </div>  
+</section>
