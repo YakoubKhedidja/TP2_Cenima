@@ -115,4 +115,110 @@ class RequetesSQL extends RequetesPDO {
 
     return $this->getLignes(['film_id' => $film_id]);
   }
+
+
+// ============================== Fonctionnalités CRUD ====================
+/**
+ * Récupération de la liste de tous les films
+ *
+ * @return array tableau des films
+ */
+public function getTousFilms() {
+  $this->sql = "
+      SELECT * FROM film";
+
+  return $this->getLignes();
 }
+
+
+  public function ajoutFilm($titre, $duree, $annee_sortie, $resume, $affiche, $bande, $statut,  $genre) {
+    // Requête SQL pour insérer un nouveau film dans la base de données
+    $sql = "INSERT INTO film (film_titre, film_duree, film_annee_sortie, film_resume, film_affiche, film_bande_annonce, film_statut, film_genre_id)
+    VALUES (:titre, :duree, :annee_sortie, :resume, :affiche, :bande, :statut, :genre)";
+  
+    // Utilisation d'une requête préparée pour sécuriser l'insertion
+    $sPDO= SingletonPDO::getInstance();
+    $stmt = $this->$sPDO->prepare($sql);
+
+    // Protection des données pour éviter les injections SQL
+    $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+    $stmt->bindParam(':duree', $duree, PDO::PARAM_INT);
+    $stmt->bindParam(':annee_sortie', $annee_sortie, PDO::PARAM_INT);
+    $stmt->bindParam(':resume', $resume, PDO::PARAM_STR);
+    $stmt->bindParam(':affiche', $affiche, PDO::PARAM_STR);
+    $stmt->bindParam(':bande', $bande, PDO::PARAM_STR);
+    $stmt->bindParam(':statut', $statut, PDO::PARAM_INT);
+    $stmt->bindParam(':genre', $genre, PDO::PARAM_INT);
+
+    // Exécution de la requête
+    $stmt->execute();
+
+    // Récupérez l'ID du nouveau film inséré
+    
+    $filmId = $this->$sPDO->lastInsertId();
+
+    return $filmId;
+  }
+
+
+  public function modificationFilm($film_id) {
+  
+        // Récupération des données mises à jour du film
+        $titre = $_POST['titre'];
+        $duree = $_POST['duree'];
+        $annee_sortie = $_POST['annee_sortie'];
+        $resume = $_POST['resume'];
+        $affiche = $_POST['affiche'];
+        $bande = $_POST['bande'];
+        $statut = $_POST['statut'];
+        $genre = $_POST['genre'];
+
+        // Requête SQL pour mettre à jour un film dans la base de données
+        $sql = "UPDATE film
+                SET film_titre = :titre, film_duree = :duree, film_annee_sortie = :annee_sortie, 
+                    film_resume = :resume, film_affiche = :affiche, film_bande_annonce = :bande, 
+                    film_statut = :statut, film_genre_id = :genre
+                WHERE film_id = :film_id";
+
+        // Utilisation d'une requête préparée pour sécuriser l'insertion
+        $sPDO= SingletonPDO::getInstance();
+        $stmt = $this->$sPDO->prepare($sql);
+
+        // Protection des données pour éviter les injections SQL
+        $stmt->bindParam(':film_id', $film_id, PDO::PARAM_INT);
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':duree', $duree, PDO::PARAM_INT);
+        $stmt->bindParam(':annee_sortie', $annee_sortie, PDO::PARAM_INT);
+        $stmt->bindParam(':resume', $resume, PDO::PARAM_STR);
+        $stmt->bindParam(':affiche', $affiche, PDO::PARAM_STR);
+        $stmt->bindParam(':bande', $bande, PDO::PARAM_STR);
+        $stmt->bindParam(':statut', $statut, PDO::PARAM_INT);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_INT);
+
+        // Exécution de la requête
+        $stmt->execute();
+
+        // Rediriger l'utilisateur vers la page de liste des films
+        header('Location: liste_films.php');
+}
+
+  public function suppressionFilm($film_id) {
+        // Requête SQL pour supprimer un film de la base de données
+        $sql = "DELETE FROM film WHERE film_id = :film_id";
+
+        // Utilisation d'une requête préparée pour sécuriser l'insertion
+        $sPDO= SingletonPDO::getInstance();
+        $stmt = $this->$sPDO->prepare($sql);
+
+        // Protection des données pour éviter les injections SQL
+        $stmt->bindParam(':film_id', $film_id, PDO::PARAM_INT);
+
+        // Exécution de la requête
+        $stmt->execute();
+
+        // Rediriger l'utilisateur vers la page de liste des films
+        header('Location: liste_films.php');
+  }
+
+}
+

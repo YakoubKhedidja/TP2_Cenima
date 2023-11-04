@@ -1,5 +1,5 @@
 <?php
-
+//require_once '../vues/Vue.class.php';
 /**
  * Classe Contrôleur des requêtes de l'interface frontend
  * 
@@ -82,4 +82,44 @@ class Frontend extends Routeur {
             ),
             "gabarit-frontend");
   }
+
+// =========================== Gestions fonctionnalités CRUD ==============
+  /**
+   * Lister tous les films
+   */  
+  public function listerTousFilms() {
+
+    // Créer une instance de RequetesSQL
+    $requetesSQL = new RequetesSQL();
+
+    // Récupérer la liste de tous les films
+    $films = $requetesSQL->getTousFilms();
+
+    // Render la vue avec les données récupérées
+    $donnees = ['films' => $films];
+    //$this->Vue->afficher('listeTousFilms', $donnees);
+
+    new Vue("listeTousFilms",
+           $donnees,
+            "gabarit-frontend");
+  }
+
+  /**
+   * Modifier ou supprimer un film
+   */  
+  public function modifSpprimeFilm() {
+
+    // Récupérer les détails du film en fonction de $film_id depuis la base de données
+    $film = $requetesSQL->getFilm($film_id); 
+
+    // Render la vue avec les données récupérées
+    $donnees = ['film' => $film];
+    new Vue("modifSpprimeFil", $donnees, "gabarit-frontend");
+  }
+
+  public function supprimerFilm($film_id) {
+    // Utiliser une instance de RequetesSQL pour supprimer le film de la base de données
+    $requetesSQL->suppressionFilm($film_id); 
+  }
 }
+

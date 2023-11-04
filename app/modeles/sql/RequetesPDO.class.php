@@ -25,3 +25,4 @@ class RequetesPDO {
     return $result;
   }
 }
+

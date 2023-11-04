@@ -1,7 +1,7 @@
 html, body, h1, h2, p, ul, li {
-  padding: 0;
-  margin: 0;
-  font-size: 16px;
+  padding: 10;
+/*  margin: 0;
+  font-size: 16px; */
 }
 
 body {
@@ -13,6 +13,7 @@ body {
   color: #fff;
 }
 a {
+  display: flex;
   text-decoration: none;
   color: #98cece;
 }

@@ -23,3 +23,4 @@ class Vue {
     echo $twig->render("$gabarit.twig", $donnees);
   }
 }
+

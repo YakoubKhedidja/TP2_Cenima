@@ -30,3 +30,4 @@ class SingletonPDO extends PDO
       return self::$instance;
     }
 }
+

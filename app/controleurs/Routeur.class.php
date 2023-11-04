@@ -14,6 +14,9 @@ class Routeur {
     ["admin",         "Admin",    "gererAdmin"],
     ["",              "Frontend", "listerAlaffiche"],
     ["prochainement", "Frontend", "listerProchainement"],
+    ["tousFilms",     "Frontend", "listerTousFilms"],   /// liste des films
+    ["ajoutFilm",     "Frontend", "ajoutFilm"],         /// Ajouter un film
+    ["modifieSpprime","Frontend", "modifSpprimeFilm"],  /// Modifier/Supprimer un film
     ["film",          "Frontend", "voirFilm"]
   ];
 
@@ -75,4 +78,13 @@ class Routeur {
     }
     exit;
   }
+
+
+// ======================= ajout de route pour gestion de CRUD =====================
+
+
+
 }
+
+
+

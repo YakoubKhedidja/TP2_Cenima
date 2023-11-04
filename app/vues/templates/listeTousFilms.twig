@@ -1,0 +1,20 @@
+<section>
+  <h1>Liste des Films</h1>
+  <div>
+  {% if films|length > 0 %}
+    {% for film in films %}
+      <div>
+        <a href="modifier?id={{ film.film_id }}">Modifier</a>
+        <a href="supprimer?id={{ film.film_id }}">Supprimer</a>
+
+        <h2>{{ film.film_titre }}</h2>
+        <img src="{{ film.film_affiche }}" alt="">
+        <p>{{ film.genre_nom }} - {{ film.film_annee_sortie }} - {{ film.film_duree }} min</p>
+        
+      </div>
+    {% endfor %}
+  {% else %}
+    <div>Aucun film.</div>
+  {% endif %}
+  </div>
+</section>
